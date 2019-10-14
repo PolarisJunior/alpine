@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/include/",
+                "${workspaceFolder}/thirdparty/SDL/include",
+                "${workspaceFolder}/thirdparty/glew/include",
+                "${workspaceFolder}/thirdparty/glm",
+                "${workspaceFolder}/thirdparty/json/single_include",
+                "${workspaceFolder}/thirdparty/SDL2_image/include",
+                "${workspaceFolder}/thirdparty/entt/single_include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.17763.0",
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.22.27905/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "msvc-x64"
+        }
+    ],
+    "version": 4
+}
