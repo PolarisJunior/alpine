@@ -4,6 +4,7 @@ DEFAULT_TARGET = "debug"
 
 platform_arg = ARGUMENTS.get("platform", ARGUMENTS.get("p", False))
 target_arg = ARGUMENTS.get("target", ARGUMENTS.get("t", False))
+run_on_finish = ARGUMENTS.get("run")
 
 platform = platform_arg if platform_arg else DEFAULT_PLATFORM
 target = target_arg if target_arg else DEFAULT_TARGET
@@ -28,4 +29,15 @@ else:
     else:
         env.Append(CPPFLAGS=["-O3"])
 
-env.Program(target="alpine", source=["./main/main.cpp"])
+if target == "debug":
+    env.Append(CPPDEFINES=["ALPINE_DEBUG"])
+else:
+    env.Append(CPPDEFINES=["ALPINE_RELEASE"])
+
+sources = Glob("./**/*.cpp")
+
+# env.Append(CPPPath=["#"])
+# env.Append(LIBS="SDL_image", "GL")
+# env.Append(LINKFLAGS)
+# env.Append(LIBPATH=["/main/"])
+env.Program(target="bin/alpine", source=Glob("**/*.cpp"))
