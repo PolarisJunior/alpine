@@ -5,16 +5,18 @@ import sys
 
 DEFAULT_PLATFORM = "windows"
 DEFAULT_TARGET = "debug"
+DEFAULT_DIMENSIONS = "3d"
 
 platform_arg = ARGUMENTS.get("platform", ARGUMENTS.get("p", False))
 target_arg = ARGUMENTS.get("target", ARGUMENTS.get("t", False))
-run_on_finish = ARGUMENTS.get("run")
+dimension_arg = ARGUMENTS.get("dimensions", ARGUMENTS.get("d", False))
 
 platform = platform_arg if platform_arg else DEFAULT_PLATFORM
 target = target_arg if target_arg else DEFAULT_TARGET
+dimension = dimension_arg if dimension_arg else DEFAULT_DIMENSIONS
 
 # env = Environment(CPPFLAGS=[], CPPDEFINES={}, ENV=os.environ)
-env = Environment(CPPFLAGS=[], CPPDEFINES={}, CPPPATH=["#", "./thirdparty/SDL2/include"])
+env = Environment(CPPFLAGS=[], CPPDEFINES={}, CPPPATH=["#", "thirdparty/SDL2/include", "thirdparty/glew/include"])
 
 if platform == "windows":
     # MSVC
@@ -40,10 +42,15 @@ if target == "debug":
 else:
     env.Append(CPPDEFINES=["ALPINE_RELEASE"])
 
+if dimension == "2d":
+    env.Append(CPPDEFINES=["ALPINE_2D"])
+else:
+    env.Append(CPPDEFINES=["ALPINE_3D"])
+
 sources = Glob("./**/*.cpp")
 
-env.Append(LIBS=["SDL2", "SDL2main"])
-env.Append(LIBPATH=["thirdparty/SDL2/lib/x64"])
+env.Append(LIBS=["SDL2", "SDL2main", "glew32s", "OpenGL32.lib"])
+env.Append(LIBPATH=["thirdparty/SDL2/lib/x64", "thirdparty/glew/lib/Release/x64"])
 
 env.Program(target="bin/alpine", source=sources)
 

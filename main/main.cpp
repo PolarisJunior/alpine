@@ -1,22 +1,21 @@
 
-#include <SDL.h>
 #include <iostream>
 
+#include "core/program.h"
 #include "core/sys.h"
+
+#include "drivers/drivers.h"
 #include "math/vector3.h"
 #include "ui/window_builder.h"
 
 int main(int argc, char* argv[]) {
   using namespace std;
-  SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS);
-  WindowBuilder window_builder;
-  window_builder.Title("Alpine Engine");
-  Window window = window_builder.Build();
+
+  Program::Init();
 
   Sys::Delay(1);
 
-  Vector3 v = Vector3::zero;
-  cout << "Hello Alpine" << v.x << endl;
+  cout << "Hello Alpine" << endl;
 
   exit(EXIT_SUCCESS);
 }

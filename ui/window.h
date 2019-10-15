@@ -4,6 +4,7 @@
 
 class Window {
  public:
+  Window();
   Window(const std::string& title,
          int32_t x,
          int32_t y,

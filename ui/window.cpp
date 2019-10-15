@@ -3,6 +3,8 @@
 
 #include <SDL.h>
 
+Window::Window() : raw_window(nullptr) {}
+
 Window::Window(const std::string& title,
                int32_t x,
                int32_t y,
