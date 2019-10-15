@@ -1,4 +1,8 @@
 
+
+import os
+import sys
+
 DEFAULT_PLATFORM = "windows"
 DEFAULT_TARGET = "debug"
 
@@ -9,7 +13,8 @@ run_on_finish = ARGUMENTS.get("run")
 platform = platform_arg if platform_arg else DEFAULT_PLATFORM
 target = target_arg if target_arg else DEFAULT_TARGET
 
-env = Environment(CPPFLAGS=[], CPPDEFINES={})
+# env = Environment(CPPFLAGS=[], CPPDEFINES={}, ENV=os.environ)
+env = Environment(CPPFLAGS=[], CPPDEFINES={}, CPPPATH=["#"])
 
 if platform == "windows":
     # MSVC
@@ -36,8 +41,9 @@ else:
 
 sources = Glob("./**/*.cpp")
 
-# env.Append(CPPPath=["#"])
-# env.Append(LIBS="SDL_image", "GL")
+env.Append(LIBS="SDL")
+env.Program(target="bin/alpine", source=sources)
+
+
 # env.Append(LINKFLAGS)
 # env.Append(LIBPATH=["/main/"])
-env.Program(target="bin/alpine", source=Glob("**/*.cpp"))
