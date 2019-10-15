@@ -14,7 +14,7 @@ platform = platform_arg if platform_arg else DEFAULT_PLATFORM
 target = target_arg if target_arg else DEFAULT_TARGET
 
 # env = Environment(CPPFLAGS=[], CPPDEFINES={}, ENV=os.environ)
-env = Environment(CPPFLAGS=[], CPPDEFINES={}, CPPPATH=["#"])
+env = Environment(CPPFLAGS=[], CPPDEFINES={}, CPPPATH=["#", "./thirdparty/SDL2/include"])
 
 if platform == "windows":
     # MSVC
@@ -28,6 +28,7 @@ if platform == "windows":
     # Set exception handling model to avoid warnings caused by Windows system headers.
     env.Append(CPPFLAGS=["/EHsc"])
     env.Append(MSVC_FLAGS=['/utf8'])
+    env.Append(LINKFLAGS=["/subsystem:console"])
 else:
     if target == "debug":
         env.Append(CPPFLAGS=["-W3", "-std=c++17", "-g"])
@@ -41,9 +42,11 @@ else:
 
 sources = Glob("./**/*.cpp")
 
-env.Append(LIBS="SDL")
+env.Append(LIBS=["SDL2", "SDL2main"])
+env.Append(LIBPATH=["thirdparty/SDL2/lib/x64"])
+
 env.Program(target="bin/alpine", source=sources)
 
 
-# env.Append(LINKFLAGS)
-# env.Append(LIBPATH=["/main/"])
+
+
