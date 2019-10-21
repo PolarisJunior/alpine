@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/thirdparty/SDL2/include",
-                "${workspaceFolder}/thirdparty/glew/include"
+                "${workspaceFolder}/thirdparty/glew/include",
+                "${workspaceFolder}/thirdparty/glm/glm"
             ],
             "defines": [
                 "_DEBUG",
