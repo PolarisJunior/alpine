@@ -11,9 +11,10 @@
         },
         {
             "label": "run",
-            "type": "shell",
-            "command": "scons;bin/alpine.exe",
-            "problemMatcher": []
+            "type": "process",
+            "command": "bin/alpine.exe",
+            "problemMatcher": [],
+            "dependsOn": ["compile"]
         },
         {
             "label": "clean",
