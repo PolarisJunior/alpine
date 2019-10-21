@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+
+#include "math/math_defs.h"
 #include "ui/window.h"
 
 class Program {
@@ -13,7 +15,10 @@ class Program {
   static void Init();
 
   static void Stop() { stop_requested = true; }
-  static bool IsStopping() { return stop_requested; }
+  static bool IsStopRequested() { return stop_requested; }
+
+  static uint32_t GetTicks();
+  static real_t GetSeconds();
 
   static Window& GetMainWindow();
 };

@@ -1,6 +1,9 @@
 #include "program.h"
 
+#include <SDL.h>
+
 #include "drivers/drivers.h"
+
 #include "ui/window.h"
 #include "ui/window_builder.h"
 
@@ -20,4 +23,12 @@ void Program::Init() {
 
 Window& Program::GetMainWindow() {
   return Program::main_window;
+}
+
+uint32_t Program::GetTicks() {
+  return SDL_GetTicks();
+}
+
+real_t Program::GetSeconds() {
+  return static_cast<real_t>(GetTicks()) / 1000.0;
 }

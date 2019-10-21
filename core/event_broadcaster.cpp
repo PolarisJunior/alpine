@@ -2,14 +2,9 @@
 
 #include <SDL.h>
 
-// void EventBroadcaster::NotifyAll() {
-
-// }
-
 void EventBroadcaster::AddListener(Event event,
                                    std::function<void(void)> listener) {
   listeners[event] = listener;
-  // listeners.insert(std::pair<Event, std::function<void()>>(event, listener));
 }
 
 void EventBroadcaster::PollEvents() {

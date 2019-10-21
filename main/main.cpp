@@ -11,6 +11,7 @@
 
 #include "drivers/peripherals/mouse.h"
 
+#include "math/math_funcs.h"
 #include "math/vector3.h"
 #include "ui/window_builder.h"
 
@@ -19,13 +20,14 @@ int main(int argc, char* argv[]) {
 
   Program::Init();
 
-  Rasterizer::SetClearColor(0.0, 0.1, 0.3, 1.0);
-  Rasterizer::Clear();
-  Rasterizer::Rasterize();
-
-  while (!Program::IsStopping()) {
+  while (!Program::IsStopRequested()) {
     Mouse::Repoll();
     EventBroadcaster::PollEvents();
+
+    Rasterizer::SetClearColor(0.0, 0.1,
+                              Math::Abs(Math::Cos(Program::GetSeconds())), 1.0);
+    Rasterizer::Clear();
+    Rasterizer::Rasterize();
   }
 
   exit(EXIT_SUCCESS);

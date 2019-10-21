@@ -9,8 +9,6 @@ class EventBroadcaster {
   inline static std::map<Event, std::function<void(void)>> listeners;
 
  public:
-  // static void NotifyAll();
-
   static void AddListener(Event event, std::function<void(void)> listener);
   static void PollEvents();
 };
