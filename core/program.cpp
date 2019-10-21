@@ -4,6 +4,8 @@
 #include "ui/window.h"
 #include "ui/window_builder.h"
 
+#include "event_broadcaster.h"
+
 void Program::Init() {
   Drivers::Init();
 
@@ -12,6 +14,8 @@ void Program::Init() {
   Program::main_window = window_builder.Build();
 
   Drivers::InitGraphics(main_window);
+
+  EventBroadcaster::AddListener(Event::QUIT, []() { Program::Stop(); });
 }
 
 Window& Program::GetMainWindow() {

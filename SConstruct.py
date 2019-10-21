@@ -2,6 +2,7 @@
 
 import os
 import sys
+import glob
 
 DEFAULT_PLATFORM = "windows"
 DEFAULT_TARGET = "debug"
@@ -50,7 +51,9 @@ if dimension == "2d":
 else:
     env.Append(CPPDEFINES=["ALPINE_3D"])
 
-sources = Glob("**/*.cpp")
+# sources = Glob("**/*.cpp", recursive=True)
+sources = [x for x in glob.glob("**/*.cpp", recursive=True) if not x.startswith("thirdparty")]
+
 
 libs = ["SDL2", "SDL2main", "glew32s", "OpenGL32.lib"]
 lib_paths = ["thirdparty/SDL2/lib/x64", "thirdparty/glew/lib/Release/x64"]
