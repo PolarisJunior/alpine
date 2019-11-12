@@ -14,6 +14,9 @@ class Mouse {
     std::array<bool, NUM_BUTTONS> pressed;
     std::array<bool, NUM_BUTTONS> down_this_frame;
     std::array<bool, NUM_BUTTONS> up_this_frame;
+    
+    /* Due to a bug in GCC this line is required */
+    MouseState() {};
   };
 
   inline static MouseState state = {};

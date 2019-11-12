@@ -1,6 +1,7 @@
 #pragma once
 
 #include "math_defs.h"
+#include <math.h>
 
 class Vector3 {
  public:
@@ -36,10 +37,10 @@ class Vector3 {
 
   bool operator==(const Vector3& other) const;
   bool operator!=(const Vector3& other) const { return !(*this == other); }
-
+/* 
   friend std::ostream& operator<<(std::ostream& out, const Vector3& vec) {
     return out << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")";
-  }
+  } */
 
   Vector3 Normalized() const;
   Vector3& Normalize();

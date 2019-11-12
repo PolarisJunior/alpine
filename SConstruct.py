@@ -5,9 +5,6 @@ import sys
 import glob
 
 import urllib.request
-import zipfile
-
-
 
 if not os.path.exists(os.path.join("thirdparty", "glew")):
     if sys.platform == "win32":
@@ -19,20 +16,19 @@ if not os.path.exists(os.path.join("thirdparty", "glew")):
             f.write(data_to_write)
         with zipfile.ZipFile(zip_path, "r") as zip_ref:
             zip_ref.extract("glew-2.1.0/", path=os.path.join("thirdparty", "glew"))
-    else:
+    elif sys.platform == "linux":
         import tarfile
         file_data = urllib.request.urlopen("https://sourceforge.net/projects/glew/files/glew/2.1.0/glew-2.1.0.tgz/download")
         data_to_write = file_data.read()
         tar_path = os.path.join("thirdparty", "glew.tgz")
         with open(tar_path, "wb") as f:
             f.write(data_to_write)
-        tarfile.open(tar_path).extractall(os.path.join("thirdparty", "glew"))
+        tar_ref = tarfile.open(tar_path)
+        """ tar_ref.extractall(os.path.join("thirdparty", "glew"), members=["glew-2.1.0/"]) """
 
 
-""" with zipfile.ZipFile("glew.tgz", "r") as zip_ref:
-    zip_ref.extractall(".") """
 
-DEFAULT_PLATFORM = "windows"
+DEFAULT_PLATFORM = "windows" if sys.platform == "win32" else sys.platform
 DEFAULT_TARGET = "debug"
 DEFAULT_DIMENSIONS = "3d"
 
@@ -64,8 +60,9 @@ if platform == "windows":
     env.Append(MSVC_FLAGS=['/utf8'])
     env.Append(LINKFLAGS=["/subsystem:console"])
 else:
+    env.Append(CPPFLAGS=["-std=c++17"])
     if target == "debug":
-        env.Append(CPPFLAGS=["-W3", "-std=c++17", "-g"])
+        env.Append(CPPFLAGS=["-Wall", "-g", "-fpermissive"])
     else:
         env.Append(CPPFLAGS=["-O3"])
 
