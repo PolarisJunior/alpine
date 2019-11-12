@@ -4,6 +4,34 @@ import os
 import sys
 import glob
 
+import urllib.request
+import zipfile
+
+
+
+if not os.path.exists(os.path.join("thirdparty", "glew")):
+    if sys.platform == "win32":
+        import zipfile
+        file_data = urllib.request.urlopen("https://sourceforge.net/projects/glew/files/glew/2.1.0/glew-2.1.0.zip/download")
+        data_to_write = file_data.read()
+        zip_path = os.path.join("thirdparty", "glew.zip")
+        with open(zip_path, "wb") as f:
+            f.write(data_to_write)
+        with zipfile.ZipFile(zip_path, "r") as zip_ref:
+            zip_ref.extract("glew-2.1.0/", path=os.path.join("thirdparty", "glew"))
+    else:
+        import tarfile
+        file_data = urllib.request.urlopen("https://sourceforge.net/projects/glew/files/glew/2.1.0/glew-2.1.0.tgz/download")
+        data_to_write = file_data.read()
+        tar_path = os.path.join("thirdparty", "glew.tgz")
+        with open(tar_path, "wb") as f:
+            f.write(data_to_write)
+        tarfile.open(tar_path).extractall(os.path.join("thirdparty", "glew"))
+
+
+""" with zipfile.ZipFile("glew.tgz", "r") as zip_ref:
+    zip_ref.extractall(".") """
+
 DEFAULT_PLATFORM = "windows"
 DEFAULT_TARGET = "debug"
 DEFAULT_DIMENSIONS = "3d"
