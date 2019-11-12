@@ -16,7 +16,7 @@ platform = platform_arg if platform_arg else DEFAULT_PLATFORM
 target = target_arg if target_arg else DEFAULT_TARGET
 dimension = dimension_arg if dimension_arg else DEFAULT_DIMENSIONS
 
-thirdparty_paths = ["thirdparty/SDL2/include", "thirdparty/glew/include", "thirdparty/glm/glm"]
+thirdparty_paths = ["thirdparty/SDL/include", "thirdparty/glew/include", "thirdparty/glm/glm"]
 for i in range(len(thirdparty_paths)):
     thirdparty_paths[i] = "-I" + thirdparty_paths[i]
 
@@ -56,7 +56,7 @@ sources = [x for x in glob.glob("**/*.cpp", recursive=True) if not x.startswith(
 
 
 libs = ["SDL2", "SDL2main", "glew32s", "OpenGL32.lib"]
-lib_paths = ["thirdparty/SDL2/lib/x64", "thirdparty/glew/lib/Release/x64"]
+lib_paths = ["thirdparty/SDL/lib/x64", "thirdparty/glew/lib/Release/x64"]
 
 env.Append(LIBS=libs)
 env.Append(LIBPATH=lib_paths)

@@ -11,13 +11,13 @@
 
 #include "drivers/peripherals/mouse.h"
 
+#include "math/mat4.h"
 #include "math/math_funcs.h"
 #include "math/vector3.h"
 #include "ui/window_builder.h"
 
 int main(int argc, char* argv[]) {
-  using namespace std;
-
+  std::cout << "Starting Alpine Engine...\n";
   Program::Init();
 
   while (!Program::IsStopRequested()) {
