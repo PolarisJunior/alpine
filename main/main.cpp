@@ -22,26 +22,34 @@
 
 #include "core/meshes/quad_mesh.h"
 
+#include <gl/glew.h>
+
 int main(int argc, char* argv[]) {
   std::cout << "Starting Alpine Engine...\n";
   Program::Init();
 
   QuadMesh mesh{};
   ShaderProgramBuilder program_builder{};
-  auto shader_program = program_builder.build();
+  program_builder.AddVertFromFile("resources/shaders/flat.vert");
+  program_builder.AddFragFromFile("resources/shaders/flat.frag");
+  auto shader_program = program_builder.Build();
+
   while (!Program::IsStopRequested()) {
     Mouse::Repoll();
     EventBroadcaster::PollEvents();
 
-    Rasterizer::SetClearColor(0.0, 0.1,
+    Rasterizer::SetClearColor(0.0, 0.25,
                               Math::Abs(Math::Cos(Program::GetSeconds())), 1.0);
     Rasterizer::Clear();
 
     shader_program->Use();
     MeshBuffers buffers = GraphicsClient::SendMesh(mesh);
-    GraphicsClient::UnbindBuffers(buffers);
 
+    glBindVertexArray(buffers.vao);
+    glDrawElements(GL_TRIANGLES, mesh.triangles.size(), GL_UNSIGNED_INT, 0);
     Rasterizer::SwapWindow();
+
+    GraphicsClient::UnbindBuffers(buffers);
   }
 
   exit(EXIT_SUCCESS);
