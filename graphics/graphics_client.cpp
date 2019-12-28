@@ -5,8 +5,13 @@
 
 #include "core/meshes/mesh.h"
 
-MeshBuffers GraphicsClient::SendMesh(const Mesh& mesh) {
-  MeshBuffers buffers{};
+void GraphicsClient::Draw(const SizedMeshBuffers& buffers) {
+  glBindVertexArray(buffers.vao);
+  glDrawElements(GL_TRIANGLES, buffers.num_elements, GL_UNSIGNED_INT, 0);
+}
+
+SizedMeshBuffers GraphicsClient::SendMesh(const Mesh& mesh) {
+  SizedMeshBuffers buffers{};
 
   glGenVertexArrays(1, &buffers.vao);
 
@@ -44,6 +49,7 @@ MeshBuffers GraphicsClient::SendMesh(const Mesh& mesh) {
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
 
+  buffers.num_elements = mesh.triangles.size();
   return buffers;
 }
 

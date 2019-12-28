@@ -1,12 +1,13 @@
 #pragma once
 
-#include "mesh_buffers.h"
+#include "sized_mesh_buffers.h"
 
 class Mesh;
 
 class GraphicsClient {
  public:
-  static MeshBuffers SendMesh(const Mesh& mesh);
+  static SizedMeshBuffers SendMesh(const Mesh& mesh);
 
   static void UnbindBuffers(MeshBuffers& buffers);
+  static void Draw(const SizedMeshBuffers& buffers);
 };

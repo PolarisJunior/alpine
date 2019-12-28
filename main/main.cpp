@@ -22,16 +22,14 @@
 
 #include "core/meshes/cube_mesh.h"
 
-#include <gl/glew.h>
-
 int main(int argc, char* argv[]) {
   std::cout << "Starting Alpine Engine...\n";
   Program::Init();
 
   CubeMesh mesh{};
   ShaderProgramBuilder program_builder{};
-  program_builder.AddVertFromFile("resources/shaders/flat.vert");
-  program_builder.AddFragFromFile("resources/shaders/flat.frag");
+  program_builder.AddVertFromFile("resources/shaders/sine.vert");
+  program_builder.AddFragFromFile("resources/shaders/sine.frag");
   auto shader_program = program_builder.Build();
 
   while (!Program::IsStopRequested()) {
@@ -43,10 +41,11 @@ int main(int argc, char* argv[]) {
     Rasterizer::Clear();
 
     shader_program->Use();
-    MeshBuffers buffers = GraphicsClient::SendMesh(mesh);
+    shader_program->SetUniform("u_time", Program::GetSeconds());
 
-    glBindVertexArray(buffers.vao);
-    glDrawElements(GL_TRIANGLES, mesh.triangles.size(), GL_UNSIGNED_INT, 0);
+    SizedMeshBuffers buffers = GraphicsClient::SendMesh(mesh);
+    GraphicsClient::Draw(buffers);
+
     Rasterizer::SwapWindow();
 
     GraphicsClient::UnbindBuffers(buffers);
