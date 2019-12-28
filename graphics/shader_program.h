@@ -9,7 +9,5 @@ class ShaderProgram {
   ShaderProgram(int32_t handle) : handle(handle) {}
   ~ShaderProgram();
 
-  void Link();
-
   void Use();
 };

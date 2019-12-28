@@ -19,6 +19,10 @@ Window::~Window() {
   SDL_DestroyWindow(static_cast<SDL_Window*>(raw_window));
 }
 
+void Window::SwapWindow() {
+  SDL_GL_SwapWindow(static_cast<SDL_Window*>(raw_window));
+}
+
 Window& Window::operator=(Window&& other) {
   swap(*this, other);
   return *this;

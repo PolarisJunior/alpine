@@ -20,7 +20,7 @@
 #include "math/vector3.h"
 #include "ui/window_builder.h"
 
-#include "core/meshes/quad_mesh.h"
+#include "core/meshes/cube_mesh.h"
 
 #include <gl/glew.h>
 
@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
   std::cout << "Starting Alpine Engine...\n";
   Program::Init();
 
-  QuadMesh mesh{};
+  CubeMesh mesh{};
   ShaderProgramBuilder program_builder{};
   program_builder.AddVertFromFile("resources/shaders/flat.vert");
   program_builder.AddFragFromFile("resources/shaders/flat.frag");

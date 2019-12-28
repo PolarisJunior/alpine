@@ -14,6 +14,8 @@ class Window {
 
   ~Window();
 
+  void SwapWindow();
+
   Window& operator=(Window&& other);
   friend void swap(Window& first, Window& second);
 
