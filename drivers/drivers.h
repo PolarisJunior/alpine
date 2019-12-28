@@ -7,4 +7,8 @@ class Drivers {
   static void Init();
 
   static void InitGraphics(Window& window);
+
+ private:
+  static void EnableVSync();
+  static void SetGlAttributes();
 };

@@ -6,4 +6,5 @@ class Rasterizer {
   static void Clear();
 
   static void Rasterize();
+  static void SwapWindow();
 };

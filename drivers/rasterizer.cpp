@@ -13,7 +13,6 @@ void Rasterizer::Clear() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
 
-void Rasterizer::Rasterize() {
-  SDL_GL_SwapWindow(
-      static_cast<SDL_Window*>(Program::GetMainWindow().raw_window));
+void Rasterizer::SwapWindow() {
+  Program::GetMainWindow().SwapWindow();
 }

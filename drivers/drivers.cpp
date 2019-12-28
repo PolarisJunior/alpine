@@ -18,10 +18,7 @@ void Drivers::Init() {
 }
 
 void Drivers::InitGraphics(Window& window) {
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+  SetGlAttributes();
 
   SDL_GLContext context =
       SDL_GL_CreateContext(static_cast<SDL_Window*>(window.raw_window));
@@ -34,10 +31,7 @@ void Drivers::InitGraphics(Window& window) {
     exit(EXIT_FAILURE);
   }
 
-  if (SDL_GL_SetSwapInterval(1) < 0) {
-    std::cout << std::string(SDL_GetError()) << std::endl;
-    exit(EXIT_FAILURE);
-  }
+  EnableVSync();
 
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
@@ -48,4 +42,18 @@ void Drivers::InitGraphics(Window& window) {
 #ifdef ALPINE_2D
 
 #endif
+}
+
+void Drivers::EnableVSync() {
+  if (SDL_GL_SetSwapInterval(1) < 0) {
+    std::cout << std::string(SDL_GetError()) << std::endl;
+    exit(EXIT_FAILURE);
+  }
+}
+
+void Drivers::SetGlAttributes() {
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 }
