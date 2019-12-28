@@ -3,7 +3,7 @@
 #include "core/program.h"
 
 #include <SDL.h>
-#include <gl/glew.h>
+#include <GL/glew.h>
 
 void Rasterizer::SetClearColor(float r, float g, float b, float a) {
   glClearColor(r, g, b, a);

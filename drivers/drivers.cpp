@@ -3,7 +3,7 @@
 
 // Required to use static linkage with GLEW
 #define GLEW_STATIC
-#include <gl/glew.h>
+#include <GL/glew.h>
 
 #include <SDL.h>
 #include <SDL_opengl.h>
