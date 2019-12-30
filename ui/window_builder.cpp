@@ -12,6 +12,6 @@ WindowBuilder& WindowBuilder::Title(const std::string& t) {
   return *this;
 }
 
-Window WindowBuilder::Build() const {
-  return Window(title, x, y, 800, 600, flags);
+std::unique_ptr<Window> WindowBuilder::Build() const {
+  return std::make_unique<Window>(title, x, y, 800, 600, flags);
 }

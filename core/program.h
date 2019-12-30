@@ -1,12 +1,13 @@
 #pragma once
 
+#include <memory>
 #include <string>
 
 #include "math/math_defs.h"
 #include "ui/window.h"
 
 class Program {
-  inline static Window main_window;
+  inline static std::unique_ptr<Window> main_window;
   inline static bool stop_requested = false;
 
  public:

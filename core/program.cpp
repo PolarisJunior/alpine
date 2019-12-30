@@ -7,6 +7,7 @@
 #include "ui/window.h"
 #include "ui/window_builder.h"
 
+#include <iostream>
 #include "event_broadcaster.h"
 
 void Program::Init() {
@@ -16,13 +17,13 @@ void Program::Init() {
   window_builder.Title(Program::PROGRAM_TITLE);
   Program::main_window = window_builder.Build();
 
-  Drivers::InitGraphics(main_window);
+  Drivers::InitGraphics(*main_window);
 
   EventBroadcaster::AddListener(Event::QUIT, []() { Program::Stop(); });
 }
 
 Window& Program::GetMainWindow() {
-  return Program::main_window;
+  return *Program::main_window;
 }
 
 uint32_t Program::GetTicks() {

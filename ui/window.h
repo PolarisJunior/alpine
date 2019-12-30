@@ -2,7 +2,12 @@
 
 #include <string>
 
+#include <cstdint>
+
 class Window {
+  int32_t width;
+  int32_t height;
+
  public:
   Window();
   Window(const std::string& title,
@@ -16,8 +21,10 @@ class Window {
 
   void SwapWindow();
 
+  int32_t Width() const { return width; };
+  int32_t Height() const { return height; };
+
   Window& operator=(Window&& other);
-  friend void swap(Window& first, Window& second);
 
   void* raw_window;
 };

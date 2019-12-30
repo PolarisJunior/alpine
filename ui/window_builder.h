@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 
 #include "window.h"
@@ -8,11 +9,10 @@
 class WindowBuilder {
  public:
   WindowBuilder();
-  // WindowBuilder& Visible
 
   WindowBuilder& Title(const std::string& t);
 
-  Window Build() const;
+  std::unique_ptr<Window> Build() const;
 
   int32_t width = 800;
   int32_t height = 600;
