@@ -12,4 +12,6 @@ class Math {
 
   static real_t Abs(real_t x) { return fabs(x); }
   static int32_t Abs(int32_t x) { return abs(x); }
+
+  static real_t ToRads(real_t degs) { return degs * 2.f * PI / 360.f; }
 };

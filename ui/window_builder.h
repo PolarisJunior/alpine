@@ -15,7 +15,7 @@ class WindowBuilder {
   Window Build() const;
 
   int32_t width = 800;
-  int32_t height = 800;
+  int32_t height = 600;
 
   int32_t x;
   int32_t y;

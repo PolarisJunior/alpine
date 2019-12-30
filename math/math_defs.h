@@ -8,3 +8,4 @@ typedef float real_t;
 #endif
 
 constexpr real_t CMP_EPSILON = 0.00001;
+constexpr real_t PI = 3.14159265f;

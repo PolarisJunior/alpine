@@ -16,5 +16,18 @@ class Transform {
   Transform() = default;
   Transform(float x, float y, float z);
 
+  void Translate(const Vector3& vec);
+
+  // Locals
+  Vector3 Position() const;
+  Vector3 Scale() const;
+  Quaternion Rotation() const;
+
+  // Globals
+  Vector3 GlobalPosition() const;
+  Vector3 GlobalScale() const;
+  Quaternion GlobalRotation() const;
+
   Mat4 ModelMatrix() const;
+  Mat4 InverseModelMatrix() const;
 };

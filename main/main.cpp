@@ -22,6 +22,8 @@
 
 #include "core/meshes/cube_mesh.h"
 
+#include "core/camera.h"
+
 int main(int argc, char* argv[]) {
   std::cout << "Starting Alpine Engine...\n";
   Program::Init();
@@ -33,6 +35,10 @@ int main(int argc, char* argv[]) {
   auto shader_program = program_builder.Build();
 
   Mat4 model = Mat4::Translate(1.0, 0.0, 0.0);
+  model *= Mat4::Rotate(1.0, Vector3{.5, .5, 0.0});
+
+  Camera camera;
+  camera.transform.Translate(Vector3(1.0, 0.0, -3.0));
 
   while (!Program::IsStopRequested()) {
     Mouse::Repoll();
@@ -43,11 +49,12 @@ int main(int argc, char* argv[]) {
     Rasterizer::Clear();
 
     shader_program->Use();
+
     shader_program->SetUniform("u_time", Program::GetSeconds());
 
     shader_program->SetUniform("model", model);
     shader_program->SetUniform("model_normal", model);
-    shader_program->SetUniform("PV", Mat4::identity);
+    shader_program->SetUniform("PV", camera.ProjectionViewMatrix());
 
     SizedMeshBuffers buffers = GraphicsClient::SendMesh(mesh);
     GraphicsClient::Draw(buffers);

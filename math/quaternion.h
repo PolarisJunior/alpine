@@ -1,7 +1,10 @@
 #pragma once
 
+#include "mat4.h"
 #include "math_defs.h"
 #include "vector3.h"
+
+class Mat4;
 
 class Quaternion {
  public:
@@ -15,6 +18,7 @@ class Quaternion {
   Quaternion(real_t rf_angle, const Vector3& rk_axis);
 
   Quaternion Inverse() const;
+  Mat4 ToMatrix() const;
 
   Vector3 operator*(const Vector3& v) const;
   Quaternion operator*(const Quaternion& rhs) const;

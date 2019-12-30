@@ -1,8 +1,9 @@
 #pragma once
 
-#include "math/mat4.h"
 #include "math/math_defs.h"
 #include "transform.h"
+
+class Mat4;
 
 class Camera {
  public:
@@ -14,4 +15,6 @@ class Camera {
   real_t field_of_view = 103.0;
 
   Mat4 ViewMatrix() const;
+  Mat4 ProjectionMatrix() const;
+  Mat4 ProjectionViewMatrix() const;
 };

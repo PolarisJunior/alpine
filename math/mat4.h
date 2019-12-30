@@ -12,6 +12,9 @@ typedef glm::dmat4x4 mat_t;
 #else
 typedef glm::mat4x4 mat_t;
 #endif
+
+class Quaternion;
+
 class Mat4 {
   union {
     std::array<real_t, 16> data;
@@ -45,16 +48,24 @@ class Mat4 {
   // comply with OpenGL.
   real_t operator[](int32_t i) const;
 
+  Mat4 operator*(const Mat4& rhs);
+
+  Mat4& operator*=(const Mat4& rhs);
+
   const real_t* Data() const;
 
   Mat4 Inverse() const;
 
-  void SetTrans(real_t x, real_t y, real_t z);
   void SetScale(real_t x, real_t y, real_t z);
 
   static Mat4 Translate(real_t x, real_t y, real_t z);
+  static Mat4 Translate(const Vector3& vec);
+
   static Mat4 Rotate(real_t rads, const Vector3& axis);
+  static Mat4 Rotate(const Quaternion& q);
+
   static Mat4 Scale(real_t x, real_t y, real_t z);
+  static Mat4 Scale(const Vector3& vec);
 
   static const Mat4 identity;
 };

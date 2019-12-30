@@ -1,5 +1,6 @@
 #include "quaternion.h"
 
+#include "mat4.h"
 #include "math_funcs.h"
 
 Quaternion::Quaternion(real_t rf_angle, const Vector3& rk_axis) {
@@ -11,6 +12,10 @@ Quaternion::Quaternion(real_t rf_angle, const Vector3& rk_axis) {
   x = f_sin * axis.x;
   y = f_sin * axis.y;
   z = f_sin * axis.z;
+}
+
+Mat4 Quaternion::ToMatrix() const {
+  return Mat4::Rotate(*this);
 }
 
 Quaternion Quaternion::Inverse() const {

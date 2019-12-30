@@ -12,7 +12,7 @@ void main()
     float dist = distance(texCoord, center);
     // FragColor = vec4(texCoord.x, texCoord.x, texCoord.x, 1.0f);
     // vec3 c = texture(u_texture, texCoord).xyz;
-    vec3 c = vec3(1.0, 0.0, 0.0);
+    vec3 c = vec3(texCoord.r, texCoord.g, 0.0);
     FragColor = vec4(c.xyz, 1.0f);
     //FragColor = vec4((normal), 1.0f);
 
