@@ -40,7 +40,7 @@ platform = platform_arg if platform_arg else DEFAULT_PLATFORM
 target = target_arg if target_arg else DEFAULT_TARGET
 dimension = dimension_arg if dimension_arg else DEFAULT_DIMENSIONS
 
-thirdparty_paths = ["thirdparty/SDL/include", "thirdparty/glew/include", "thirdparty/glm/glm"]
+thirdparty_paths = ["thirdparty/SDL/include", "thirdparty/glew/include", "thirdparty/glm"]
 for i in range(len(thirdparty_paths)):
     thirdparty_paths[i] = "-I" + thirdparty_paths[i]
 

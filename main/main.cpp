@@ -28,9 +28,11 @@ int main(int argc, char* argv[]) {
 
   CubeMesh mesh{};
   ShaderProgramBuilder program_builder{};
-  program_builder.AddVertFromFile("resources/shaders/sine.vert");
-  program_builder.AddFragFromFile("resources/shaders/sine.frag");
+  program_builder.AddVertFromFile("resources/shaders/simple.vert");
+  program_builder.AddFragFromFile("resources/shaders/simple.frag");
   auto shader_program = program_builder.Build();
+
+  Mat4 model = Mat4::Translate(1.0, 0.0, 0.0);
 
   while (!Program::IsStopRequested()) {
     Mouse::Repoll();
@@ -42,6 +44,10 @@ int main(int argc, char* argv[]) {
 
     shader_program->Use();
     shader_program->SetUniform("u_time", Program::GetSeconds());
+
+    shader_program->SetUniform("model", model);
+    shader_program->SetUniform("model_normal", model);
+    shader_program->SetUniform("PV", Mat4::identity);
 
     SizedMeshBuffers buffers = GraphicsClient::SendMesh(mesh);
     GraphicsClient::Draw(buffers);

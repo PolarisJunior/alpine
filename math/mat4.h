@@ -5,11 +5,19 @@
 #include "math/math_defs.h"
 #include "math/vector3.h"
 
+#include <glm/mat4x4.hpp>
+
+#ifdef REAL_T_IS_DOUBLE
+typedef glm::dmat4x4 mat_t;
+#else
+typedef glm::mat4x4 mat_t;
+#endif
 class Mat4 {
   union {
-    std::array<real_t, 16> array;
+    std::array<real_t, 16> data;
     std::array<std::array<real_t, 4>, 4> rows;
-  } values;
+    mat_t glm_mat;
+  };
 
  public:
   Mat4();
@@ -33,9 +41,20 @@ class Mat4 {
        real_t z3,
        real_t w3);
 
+  // At the time of writing, Mat4 is column major to
+  // comply with OpenGL.
   real_t operator[](int32_t i) const;
 
-  Mat4 inverse() const;
+  const real_t* Data() const;
+
+  Mat4 Inverse() const;
+
+  void SetTrans(real_t x, real_t y, real_t z);
+  void SetScale(real_t x, real_t y, real_t z);
+
+  static Mat4 Translate(real_t x, real_t y, real_t z);
+  static Mat4 Rotate(real_t rads, const Vector3& axis);
+  static Mat4 Scale(real_t x, real_t y, real_t z);
 
   static const Mat4 identity;
 };

@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <string>
 
+class Mat4;
+
 class ShaderProgram {
   int32_t handle;
 
@@ -14,4 +16,5 @@ class ShaderProgram {
 
   void SetUniform(const std::string& name, float f);
   void SetUniform(const std::string& name, int32_t v);
+  void SetUniform(const std::string& name, const Mat4& m);
 };
