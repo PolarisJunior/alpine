@@ -16,7 +16,8 @@ Mat4 Camera::ProjectionMatrix() const {
   glm::mat4 proj = glm::perspectiveFovLH(
       Math::ToRads(field_of_view),
       static_cast<real_t>(Program::GetMainWindow().Width()),
-      static_cast<real_t>(600), near_clip_plane, far_clip_plane);
+      static_cast<real_t>(Program::GetMainWindow().Height()), near_clip_plane,
+      far_clip_plane);
   memcpy(&m, &proj, sizeof(m));
   return m;
 }

@@ -11,7 +11,7 @@ class Program {
   inline static bool stop_requested = false;
 
  public:
-  inline static const std::string PROGRAM_TITLE = "Alpine Engine";
+  inline static const std::string program_title = "Alpine Engine";
 
   static void Init();
 

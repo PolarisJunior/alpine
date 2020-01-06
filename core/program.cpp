@@ -14,7 +14,7 @@ void Program::Init() {
   Drivers::Init();
 
   WindowBuilder window_builder;
-  window_builder.Title(Program::PROGRAM_TITLE);
+  window_builder.Title(Program::program_title);
   Program::main_window = window_builder.Build();
 
   Drivers::InitGraphics(*main_window);

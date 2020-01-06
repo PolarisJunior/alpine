@@ -20,15 +20,21 @@
 #include "math/vector3.h"
 #include "ui/window_builder.h"
 
-#include "core/meshes/cube_mesh.h"
+#include "core/primitive.h"
 
 #include "core/camera.h"
+
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 int main(int argc, char* argv[]) {
   std::cout << "Starting Alpine Engine...\n";
   Program::Init();
 
-  CubeMesh mesh{};
+  json j = json::parse("{\"x\" : 10}");
+  j["foo"] = 5;
+  std::cout << j << std::endl;
+
   ShaderProgramBuilder program_builder{};
   program_builder.AddVertFromFile("resources/shaders/simple.vert");
   program_builder.AddFragFromFile("resources/shaders/simple.frag");
@@ -56,7 +62,7 @@ int main(int argc, char* argv[]) {
     shader_program->SetUniform("model_normal", model);
     shader_program->SetUniform("PV", camera.ProjectionViewMatrix());
 
-    SizedMeshBuffers buffers = GraphicsClient::SendMesh(mesh);
+    SizedMeshBuffers buffers = GraphicsClient::SendMesh(Primitive::cube_mesh);
     GraphicsClient::Draw(buffers);
 
     Rasterizer::SwapWindow();

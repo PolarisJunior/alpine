@@ -35,6 +35,7 @@ void Drivers::InitGraphics(Window& window) {
 
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
+  glDepthFunc(GL_LESS);
   glFrontFace(GL_CW);
 #ifdef ALPINE_3D
   glEnable(GL_MULTISAMPLE);

@@ -40,9 +40,12 @@ platform = platform_arg if platform_arg else DEFAULT_PLATFORM
 target = target_arg if target_arg else DEFAULT_TARGET
 dimension = dimension_arg if dimension_arg else DEFAULT_DIMENSIONS
 
-thirdparty_paths = ["thirdparty/SDL/include", "thirdparty/glew/include", "thirdparty/glm"]
+thirdparty_paths = ["thirdparty/SDL/include", "thirdparty/glew/include", "thirdparty/glm", "thirdparty/json/single_include"]
 for i in range(len(thirdparty_paths)):
     thirdparty_paths[i] = "-I" + thirdparty_paths[i]
+
+# Prevent GLEW link warnings, LNK4286.
+cpp_defines = ["GLEW_STATIC"]
 
 env = Environment(CPPPATH=["#"], CCFLAGS=thirdparty_paths)
 
@@ -53,10 +56,12 @@ if platform == "windows":
         env.Append(CPPFLAGS=["-W3", "/std:c++17"])
     else:
         env.Append(CPPFLAGS=["-O3"])
+    # /clr hides the LNK4217 warning.
     disable_nonessential_warnings = ['/wd4267', '/wd4244', '/wd4305', '/wd4018', '/wd4800']    
     env.Append(CPPFLAGS=disable_nonessential_warnings)
     # Set exception handling model to avoid warnings caused by Windows system headers.
     env.Append(CPPFLAGS=["/EHsc"])
+    # env.Append(CPPFLAGS=["/clr"])
     env.Append(MSVC_FLAGS=['/utf8'])
     env.Append(LINKFLAGS=["/subsystem:console"])
 else:
@@ -67,14 +72,14 @@ else:
         env.Append(CPPFLAGS=["-O3"])
 
 if target == "debug":
-    env.Append(CPPDEFINES=["ALPINE_DEBUG"])
+    cpp_defines.append("ALPINE_DEBUG")
 else:
-    env.Append(CPPDEFINES=["ALPINE_RELEASE"])
+    cpp_defines.append("ALPINE_RELEASE")
 
 if dimension == "2d":
-    env.Append(CPPDEFINES=["ALPINE_2D"])
+    cpp_defines.append("ALPINE_2D")
 else:
-    env.Append(CPPDEFINES=["ALPINE_3D"])
+    cpp_defines.append("ALPINE_3D")
 
 # sources = Glob("**/*.cpp", recursive=True)
 sources = [x for x in glob.glob("**/*.cpp", recursive=True) if not x.startswith("thirdparty")]
@@ -85,6 +90,7 @@ lib_paths = ["thirdparty/SDL/lib/x64", "thirdparty/glew/lib/Release/x64"]
 
 env.Append(LIBS=libs)
 env.Append(LIBPATH=lib_paths)
+env.Append(CPPDEFINES=cpp_defines)
 
 env.Program(target="bin/alpine", source=sources)
 
