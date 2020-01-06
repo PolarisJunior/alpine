@@ -2,7 +2,7 @@
 #include "window.h"
 
 #include <SDL.h>
-#
+
 Window::Window() : raw_window(nullptr) {}
 
 Window::Window(const std::string& title,

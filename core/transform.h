@@ -14,7 +14,7 @@ class Transform {
 
  public:
   Transform() = default;
-  Transform(float x, float y, float z);
+  Transform(float x, float y, float z) : local_position(Vector3{x, y, z}){};
 
   void Translate(const Vector3& vec);
 

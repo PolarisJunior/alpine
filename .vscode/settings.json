@@ -55,6 +55,26 @@
         "xtr1common": "cpp",
         "xutility": "cpp",
         "concepts": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "bitset": "cpp",
+        "clocale": "cpp",
+        "condition_variable": "cpp",
+        "csignal": "cpp",
+        "cstdarg": "cpp",
+        "ctime": "cpp",
+        "forward_list": "cpp",
+        "iomanip": "cpp",
+        "locale": "cpp",
+        "mutex": "cpp",
+        "random": "cpp",
+        "regex": "cpp",
+        "set": "cpp",
+        "thread": "cpp",
+        "valarray": "cpp",
+        "variant": "cpp",
+        "xlocbuf": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xloctime": "cpp"
     }
 }

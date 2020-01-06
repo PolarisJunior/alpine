@@ -1,5 +1,9 @@
 #include "transform.h"
 
+// Transform::Transform(Transform&& other) {
+
+// }
+
 Mat4 Transform::ModelMatrix() const {
   if (!dirty) {
     return model;

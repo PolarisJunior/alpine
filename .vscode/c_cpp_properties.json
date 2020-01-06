@@ -7,7 +7,8 @@
                 "${workspaceFolder}/thirdparty/SDL2/include",
                 "${workspaceFolder}/thirdparty/glew/include",
                 "${workspaceFolder}/thirdparty/glm/glm",
-                "${workspaceFolder}/thirdparty/json/single_include"
+                "${workspaceFolder}/thirdparty/json/single_include",
+                "${workspaceFolder}/thirdparty/SDL2_image/include"
             ],
             "defines": [
                 "_DEBUG",
