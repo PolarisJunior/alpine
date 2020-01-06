@@ -1,7 +1,7 @@
 #pragma once
 
+#include <string>
 #include <vector>
-#include "math/vector3.h"
 
 class Mesh {
  public:
@@ -16,4 +16,6 @@ class Mesh {
   std::vector<int32_t> triangles;
   std::vector<float> normals;
   std::vector<float> uvs;
+
+  static Mesh FromFile(const std::string& path);
 };
