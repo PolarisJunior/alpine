@@ -4,7 +4,9 @@
 #include <array>
 #include <cstdint>
 
-class Mouse {
+#include "core/loop_registry.h"
+
+class Mouse : LoopRegistry::Preloop<Mouse> {
   static constexpr uint8_t NUM_BUTTONS = 3;
 
   struct MouseState {
@@ -14,9 +16,9 @@ class Mouse {
     std::array<bool, NUM_BUTTONS> pressed;
     std::array<bool, NUM_BUTTONS> down_this_frame;
     std::array<bool, NUM_BUTTONS> up_this_frame;
-    
+
     /* Due to a bug in GCC this line is required */
-    MouseState() {};
+    MouseState(){};
   };
 
   inline static MouseState state = {};
@@ -35,4 +37,5 @@ class Mouse {
   static int32_t GetY();
 
   static void Repoll();
+  static void Update();
 };

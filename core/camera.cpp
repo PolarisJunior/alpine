@@ -25,3 +25,16 @@ Mat4 Camera::ProjectionMatrix() const {
 Mat4 Camera::ProjectionViewMatrix() const {
   return ProjectionMatrix() * ViewMatrix();
 }
+
+Mat4 Camera::InverseProjectionMatrix() const {
+  return ProjectionMatrix().Inverse();
+}
+
+Ray Camera::ScreenPointToRay(real_t x, real_t y) const {
+  // NEEDS TESTING
+  Vector3 ndc((x / Program::GetMainWindow().Width()) * 2,
+              -(y / Program::GetMainWindow().Height() - .5) * 2, -1);
+  Ray ray{transform.GlobalPosition(), transform.GlobalRotation().ToMatrix() *
+                                          InverseProjectionMatrix() * ndc};
+  return ray;
+}

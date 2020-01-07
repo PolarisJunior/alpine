@@ -19,3 +19,7 @@ void EventBroadcaster::PollEvents() {
     }
   }
 }
+
+void EventBroadcaster::Update() {
+  PollEvents();
+}

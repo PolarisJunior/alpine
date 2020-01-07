@@ -48,7 +48,8 @@ class Mat4 {
   // comply with OpenGL.
   real_t operator[](int32_t i) const;
 
-  Mat4 operator*(const Mat4& rhs);
+  Mat4 operator*(const Mat4& rhs) const;
+  Vector3 operator*(const Vector3& rhs) const;
 
   Mat4& operator*=(const Mat4& rhs);
 

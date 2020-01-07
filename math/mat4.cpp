@@ -39,10 +39,15 @@ real_t Mat4::operator[](int32_t i) const {
   return data[i];
 }
 
-Mat4 Mat4::operator*(const Mat4& rhs) {
+Mat4 Mat4::operator*(const Mat4& rhs) const {
   Mat4 m;
   m.glm_mat = glm_mat * rhs.glm_mat;
   return m;
+}
+
+Vector3 Mat4::operator*(const Vector3& rhs) const {
+  glm::vec3 glm_vec = glm_mat * glm::vec4(rhs.x, rhs.y, rhs.z, 1);
+  return {glm_vec.x, glm_vec.y, glm_vec.z};
 }
 
 Mat4& Mat4::operator*=(const Mat4& rhs) {

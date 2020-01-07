@@ -1,6 +1,7 @@
 #pragma once
 
 #include "math/math_defs.h"
+#include "math/ray.h"
 #include "transform.h"
 
 class Mat4;
@@ -17,4 +18,8 @@ class Camera {
   Mat4 ViewMatrix() const;
   Mat4 ProjectionMatrix() const;
   Mat4 ProjectionViewMatrix() const;
+
+  Mat4 InverseProjectionMatrix() const;
+
+  Ray ScreenPointToRay(real_t x, real_t y) const;
 };

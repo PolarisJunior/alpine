@@ -1,7 +1,9 @@
 #pragma once
 
-#include "math_defs.h"
 #include <math.h>
+#include <sstream>
+#include <string>
+#include "math_defs.h"
 
 class Vector3 {
  public:
@@ -37,10 +39,10 @@ class Vector3 {
 
   bool operator==(const Vector3& other) const;
   bool operator!=(const Vector3& other) const { return !(*this == other); }
-/* 
-  friend std::ostream& operator<<(std::ostream& out, const Vector3& vec) {
-    return out << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")";
-  } */
+  /*
+    friend std::ostream& operator<<(std::ostream& out, const Vector3& vec) {
+      return out << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")";
+    } */
 
   Vector3 Normalized() const;
   Vector3& Normalize();
@@ -54,6 +56,8 @@ class Vector3 {
   real_t Pitch() const;
   real_t Yaw() const;
   real_t Roll() const;
+
+  std::string ToString() const;
 
   static Vector3 zero;
   static Vector3 one;
@@ -182,6 +186,12 @@ inline real_t Vector3::Yaw() const {
 
 inline real_t Vector3::Roll() const {
   return this->z;
+}
+
+inline std::string Vector3::ToString() const {
+  std::stringstream ss;
+  ss << "(" << x << ", " << y << ", " << z << ")";
+  return ss.str();
 }
 
 inline Vector3 Vector3::zero = Vector3(0, 0, 0);

@@ -5,11 +5,35 @@
 #include <gl/glew.h>
 #include <algorithm>
 
+#include "core/camera.h"
 #include "core/primitive.h"
 #include "graphics/graphics_client.h"
+#include "graphics/shader_program.h"
+#include "graphics/shader_program_builder.h"
 #include "graphics/sized_mesh_buffers.h"
 
-Skybox::Skybox(const std::array<std::string, 6>& face_files) {
+static std::array<std::string, 6> DefaultFaceFiles() {
+  std::array<std::string, 6> skybox_faces = {"right",  "left",  "top",
+                                             "bottom", "front", "back"};
+  std::transform(
+      skybox_faces.begin(), skybox_faces.end(), skybox_faces.begin(),
+      [](const auto& str) { return "resources/skybox/" + str + ".jpg"; });
+  return skybox_faces;
+}
+
+static std::unique_ptr<ShaderProgram> DefaultShaderProgram() {
+  ShaderProgramBuilder skybox_program_builder{};
+  skybox_program_builder.AddVertFromFile("resources/shaders/skybox.vert");
+  skybox_program_builder.AddFragFromFile("resources/shaders/skybox.frag");
+  auto skybox_shader_program = skybox_program_builder.Build();
+  return skybox_shader_program;
+}
+
+Skybox::Skybox() : Skybox(DefaultFaceFiles(), DefaultShaderProgram()) {}
+
+Skybox::Skybox(const std::array<std::string, 6>& face_files,
+               std::unique_ptr<ShaderProgram> prog)
+    : shader_program(std::move(prog)) {
   glGenTextures(1, &cube_map_id);
   glBindTexture(GL_TEXTURE_CUBE_MAP, cube_map_id);
 
@@ -36,7 +60,11 @@ Skybox::Skybox(const std::array<std::string, 6>& face_files) {
   glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 }
 
-void Skybox::Render() {
+void Skybox::Render(const Camera& camera) {
+  shader_program->Use();
+  shader_program->SetUniform("view", camera.ViewMatrix());
+  shader_program->SetUniform("projection", camera.ProjectionMatrix());
+
   glFrontFace(GL_CCW);
   glDepthFunc(GL_LEQUAL);
   glBindTexture(GL_TEXTURE_CUBE_MAP, cube_map_id);

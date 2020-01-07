@@ -16,3 +16,8 @@ void Rasterizer::Clear() {
 void Rasterizer::SwapWindow() {
   Program::GetMainWindow().SwapWindow();
 }
+
+void Rasterizer::Update() {
+  Rasterizer::SetClearColor(0.0, 0.0, 0.0, 1.0);
+  Rasterizer::Clear();
+}

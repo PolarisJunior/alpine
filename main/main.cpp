@@ -1,6 +1,9 @@
 
 #include <iostream>
 
+#include <algorithm>
+#include <entt/entt.hpp>
+
 #include "core/program.h"
 #include "core/sys.h"
 
@@ -13,6 +16,7 @@
 #include "drivers/drivers.h"
 #include "drivers/rasterizer.h"
 
+#include "drivers/peripherals/keyboard.h"
 #include "drivers/peripherals/mouse.h"
 
 #include "math/mat4.h"
@@ -27,10 +31,8 @@
 
 #include "core/meshes/mesh.h"
 
-#include <entt/entt.hpp>
+#include "core/loop_registry.h"
 #include "core/world/skybox.h"
-
-#include <algorithm>
 
 int main(int argc, char* argv[]) {
   std::cout << "Starting Alpine Engine...\n";
@@ -41,22 +43,14 @@ int main(int argc, char* argv[]) {
   program_builder.AddFragFromFile("resources/shaders/simple.frag");
   auto shader_program = program_builder.Build();
 
-  ShaderProgramBuilder skybox_program_builder{};
-  skybox_program_builder.AddVertFromFile("resources/shaders/skybox.vert");
-  skybox_program_builder.AddFragFromFile("resources/shaders/skybox.frag");
-  auto skybox_shader_program = skybox_program_builder.Build();
-  std::array<std::string, 6> skybox_faces = {"right",  "left",  "top",
-                                             "bottom", "front", "back"};
-  std::transform(
-      skybox_faces.begin(), skybox_faces.end(), skybox_faces.begin(),
-      [](const auto& str) { return "resources/skybox/" + str + ".jpg"; });
-  Skybox skybox{skybox_faces};
+  Skybox skybox{};
 
   Mat4 model = Mat4::Translate(1.0, 0.0, 0.0);
   model *= Mat4::Rotate(3.0, Vector3{.5, .5, 0.0});
 
   Camera camera;
   camera.transform.Translate(Vector3(1.0, 0.0, -3.0));
+  camera.transform.Rotate(PI / 2, Vector3::forward);
 
   entt::registry registry;
   auto entity = registry.create();
@@ -65,14 +59,12 @@ int main(int argc, char* argv[]) {
   entity = registry.create();
   registry.assign<Transform>(entity);
   registry.assign<Mesh>(entity, Primitive::cube_mesh);
+  registry.get<Transform>(entity).Rotate(PI / 2, Vector3(0.5, 0.5, 0));
 
   while (!Program::IsStopRequested()) {
-    Mouse::Repoll();
-    EventBroadcaster::PollEvents();
+    LoopRegistry::UpdateAll();
 
-    Rasterizer::SetClearColor(0.0, 0.25,
-                              Math::Abs(Math::Cos(Program::GetSeconds())), 1.0);
-    Rasterizer::Clear();
+    skybox.Render(camera);
 
     shader_program->Use();
     shader_program->SetUniform("u_time", Program::GetSeconds());
@@ -87,11 +79,6 @@ int main(int argc, char* argv[]) {
       GraphicsClient::Draw(buffers);
       GraphicsClient::UnbindBuffers(buffers);
     }
-
-    skybox_shader_program->Use();
-    skybox_shader_program->SetUniform("view", camera.ViewMatrix());
-    skybox_shader_program->SetUniform("projection", camera.ProjectionMatrix());
-    skybox.Render();
 
     Rasterizer::SwapWindow();
   }

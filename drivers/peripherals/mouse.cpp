@@ -53,3 +53,7 @@ void Mouse::Repoll() {
     }
   }
 }
+
+void Mouse::Update() {
+  Repoll();
+}

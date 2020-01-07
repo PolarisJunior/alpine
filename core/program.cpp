@@ -4,6 +4,7 @@
 
 #include "drivers/drivers.h"
 
+#include "drivers/peripherals/keyboard.h"
 #include "ui/window.h"
 #include "ui/window_builder.h"
 
@@ -20,6 +21,8 @@ void Program::Init() {
   Drivers::InitGraphics(*main_window);
 
   EventBroadcaster::AddListener(Event::QUIT, []() { Program::Stop(); });
+
+  Keyboard::Initialize();
 }
 
 Window& Program::GetMainWindow() {

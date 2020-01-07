@@ -17,6 +17,7 @@ class Transform {
   Transform(float x, float y, float z) : local_position(Vector3{x, y, z}){};
 
   void Translate(const Vector3& vec);
+  void Rotate(real_t rads, const Vector3& axis);
 
   // Locals
   Vector3 Position() const;
