@@ -82,7 +82,7 @@ else:
     cpp_defines.append("ALPINE_3D")
 
 # sources = Glob("**/*.cpp", recursive=True)
-sources = [x for x in glob.glob("**/*.cpp", recursive=True) if not x.startswith("thirdparty")]
+sources = [x for x in glob.glob("**/*.cpp", recursive=True) if not x.startswith("thirdparty") and not x.startswith("CMakeFiles")]
 
 
 libs = ["SDL2", "SDL2main", "SDL2_image", "glew32s", "OpenGL32.lib"]

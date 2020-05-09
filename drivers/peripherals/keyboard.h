@@ -12,11 +12,7 @@ class Keyboard : LoopRegistry::Preloop<Keyboard> {
   static const uint8_t* key_states;
 
  public:
-  static void Initialize();
-
-  static bool KeyDown(uint32_t scan_code);
-
-  enum ScanCode {
+  enum class ScanCode {
     A = 4,
     B,
     C,
@@ -42,8 +38,17 @@ class Keyboard : LoopRegistry::Preloop<Keyboard> {
     W,
     X,
     Y,
-    Z
+    Z,
+    RIGHT = 79,
+    LEFT,
+    DOWN,
+    UP
   };
+
+  static void Initialize();
+
+  static bool KeyDown(uint32_t scan_code);
+  static bool KeyDown(ScanCode scan_code);
 
   static void Update();
 };

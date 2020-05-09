@@ -16,4 +16,8 @@ bool Keyboard::KeyDown(uint32_t scan_code) {
   return key_states[scan_code];
 }
 
+bool Keyboard::KeyDown(ScanCode scan_code) {
+  return KeyDown(static_cast<uint32_t>(scan_code));
+}
+
 void Keyboard::Update() {}
