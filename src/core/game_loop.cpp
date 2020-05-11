@@ -1,28 +1,22 @@
 #include "core/game_loop.h"
-#include "core/program.h"
 
+#include <entt/entt.hpp>
+
+#include "core/camera.h"
 #include "core/event_broadcaster.h"
-
+#include "core/game_loop.h"
+#include "core/primitive.h"
+#include "core/program.h"
+#include "drivers/drivers.h"
+#include "drivers/peripherals/mouse.h"
+#include "drivers/rasterizer.h"
 #include "graphics/graphics_client.h"
 #include "graphics/shader_program.h"
 #include "graphics/shader_program_builder.h"
-
-#include "drivers/drivers.h"
-#include "drivers/rasterizer.h"
-
-#include "drivers/peripherals/mouse.h"
-
 #include "math/mat4.h"
-#include "math/math_funcs.h"
 #include "math/vector3.h"
+#include "pjmath/math_funcs.hpp"
 #include "ui/window_builder.h"
-
-#include "core/primitive.h"
-
-#include "core/camera.h"
-
-#include <entt/entt.hpp>
-#include "core/game_loop.h"
 
 void GameLoop::HandleInput() {
   Mouse::Repoll();

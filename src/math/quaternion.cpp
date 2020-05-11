@@ -1,7 +1,7 @@
 #include "math/quaternion.h"
 
 #include "math/mat4.h"
-#include "math/math_funcs.h"
+#include "pjmath/math_funcs.hpp"
 
 Quaternion::Quaternion(real_t rf_angle, const Vector3& rk_axis) {
   Vector3 axis = rk_axis.Normalized();

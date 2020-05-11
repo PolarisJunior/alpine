@@ -1,7 +1,7 @@
 #pragma once
 
 #include "mat4.h"
-#include "math_defs.h"
+#include "pjmath/math_defs.hpp"
 #include "vector3.h"
 
 class Mat4;

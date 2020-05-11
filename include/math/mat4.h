@@ -1,11 +1,10 @@
 #pragma once
 
 #include <array>
-
-#include "math/math_defs.h"
-#include "math/vector3.h"
-
 #include <glm/mat4x4.hpp>
+
+#include "math/vector3.h"
+#include "pjmath/math_defs.hpp"
 
 #ifdef REAL_T_IS_DOUBLE
 typedef glm::dmat4x4 mat_t;

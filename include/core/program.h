@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 
-#include "math/math_defs.h"
+#include "pjmath/math_defs.hpp"
 #include "ui/window.h"
 
 class Program {

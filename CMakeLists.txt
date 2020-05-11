@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(ALPINE_SOURCE_DIR src)
 set(THIRD_PARTY_DIR thirdparty)
+set(MODULES_DIR modules)
 
 add_executable(Alpine
                ${ALPINE_SOURCE_DIR}/main/main.cpp
@@ -34,7 +35,8 @@ add_executable(Alpine
                ${ALPINE_SOURCE_DIR}/core/meshes/mesh.cpp
                ${ALPINE_SOURCE_DIR}/core/io/file.cpp
                ${ALPINE_SOURCE_DIR}/ui/window_builder.cpp
-               ${ALPINE_SOURCE_DIR}/ui/window.cpp)
+               ${ALPINE_SOURCE_DIR}/ui/window.cpp
+               )
 
 target_include_directories(Alpine PUBLIC
                            ${THIRD_PARTY_DIR}/entt/single_include
@@ -42,7 +44,8 @@ target_include_directories(Alpine PUBLIC
                            ${THIRD_PARTY_DIR}/json/include 
                            ${THIRD_PARTY_DIR}/SDL/include
                            ${THIRD_PARTY_DIR}/SDL2_image/include
-                           ${THIRD_PARTY_DIR}/glm 
+                           ${THIRD_PARTY_DIR}/glm
+                           ${MODULES_DIR}/pjmath/include
                            ./include)
 
 target_link_libraries(Alpine

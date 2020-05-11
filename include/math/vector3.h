@@ -1,9 +1,11 @@
 #pragma once
 
 #include <math.h>
+
 #include <sstream>
 #include <string>
-#include "math_defs.h"
+
+#include "pjmath/math_defs.hpp"
 
 class Vector3 {
  public:

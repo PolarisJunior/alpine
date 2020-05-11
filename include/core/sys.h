@@ -1,7 +1,8 @@
 #pragma once
 
 #include <chrono>
-#include "math/math_defs.h"
+
+#include "pjmath/math_defs.hpp"
 
 class Sys {
  public:

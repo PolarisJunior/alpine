@@ -1,5 +1,5 @@
 #pragma once
-#include "math_defs.h"
+#include "pjmath/math_defs.hpp"
 #include "vector3.h"
 
 struct Ray {
