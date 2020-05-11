@@ -1,7 +1,7 @@
 #pragma once
 
-#include "math/math_defs.h"
 #include "math/ray.h"
+#include "pjmath/math_defs.hpp"
 #include "transform.h"
 
 class Mat4;

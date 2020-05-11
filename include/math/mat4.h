@@ -1,11 +1,10 @@
 #pragma once
 
 #include <array>
-
-#include "math/math_defs.h"
-#include "math/vector3.h"
-
 #include <glm/mat4x4.hpp>
+
+#include "pjmath/math_defs.hpp"
+#include "pjmath/vector.hpp"
 
 #ifdef REAL_T_IS_DOUBLE
 typedef glm::dmat4x4 mat_t;
@@ -49,7 +48,7 @@ class Mat4 {
   real_t operator[](int32_t i) const;
 
   Mat4 operator*(const Mat4& rhs) const;
-  Vector3 operator*(const Vector3& rhs) const;
+  pjmath::Vector3 operator*(const pjmath::Vector3& rhs) const;
 
   Mat4& operator*=(const Mat4& rhs);
 
@@ -60,13 +59,13 @@ class Mat4 {
   void SetScale(real_t x, real_t y, real_t z);
 
   static Mat4 Translate(real_t x, real_t y, real_t z);
-  static Mat4 Translate(const Vector3& vec);
+  static Mat4 Translate(const pjmath::Vector3& vec);
 
-  static Mat4 Rotate(real_t rads, const Vector3& axis);
+  static Mat4 Rotate(real_t rads, const pjmath::Vector3& axis);
   static Mat4 Rotate(const Quaternion& q);
 
   static Mat4 Scale(real_t x, real_t y, real_t z);
-  static Mat4 Scale(const Vector3& vec);
+  static Mat4 Scale(const pjmath::Vector3& vec);
 
   static const Mat4 identity;
 };

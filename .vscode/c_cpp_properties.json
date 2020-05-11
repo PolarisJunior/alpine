@@ -9,7 +9,8 @@
                 "${workspaceFolder}/thirdparty/glm",
                 "${workspaceFolder}/thirdparty/json/single_include",
                 "${workspaceFolder}/thirdparty/SDL2_image/include",
-                "${workspaceFolder}/thirdparty/entt/single_include"
+                "${workspaceFolder}/thirdparty/entt/single_include",
+                "${workspaceFolder}/modules/pjmath/include"
             ],
             "defines": [
                 "_DEBUG",

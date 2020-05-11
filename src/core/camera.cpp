@@ -1,11 +1,10 @@
 #include "core/camera.h"
 
-#include "core/program.h"
-
 #include <glm/mat4x4.hpp>
-#include "glm/gtc/matrix_transform.hpp"
 
-#include "math/math_funcs.h"
+#include "core/program.h"
+#include "glm/gtc/matrix_transform.hpp"
+#include "pjmath/math_funcs.hpp"
 
 Mat4 Camera::ViewMatrix() const {
   return transform.InverseModelMatrix();
@@ -32,8 +31,8 @@ Mat4 Camera::InverseProjectionMatrix() const {
 
 Ray Camera::ScreenPointToRay(real_t x, real_t y) const {
   // NEEDS TESTING
-  Vector3 ndc((x / Program::GetMainWindow().Width()) * 2,
-              -(y / Program::GetMainWindow().Height() - .5) * 2, -1);
+  pjmath::Vector3 ndc{(x / Program::GetMainWindow().Width()) * 2,
+                      -(y / Program::GetMainWindow().Height() - .5) * 2, -1};
   Ray ray{transform.GlobalPosition(), transform.GlobalRotation().ToMatrix() *
                                           InverseProjectionMatrix() * ndc};
   return ray;

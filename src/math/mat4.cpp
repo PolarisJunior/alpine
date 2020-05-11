@@ -1,14 +1,12 @@
 #include "math/mat4.h"
 
-#include "math/quaternion.h"
-
-#include <glm/gtx/transform.hpp>
-
-#include <glm/gtc/quaternion.hpp>
-
 #include <glm/detail/qualifier.hpp>
 #include <glm/ext/quaternion_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/transform.hpp>
+
+#include "math/quaternion.h"
 
 const Mat4 Mat4::identity = Mat4{};
 
@@ -45,7 +43,7 @@ Mat4 Mat4::operator*(const Mat4& rhs) const {
   return m;
 }
 
-Vector3 Mat4::operator*(const Vector3& rhs) const {
+pjmath::Vector3 Mat4::operator*(const pjmath::Vector3& rhs) const {
   glm::vec3 glm_vec = glm_mat * glm::vec4(rhs.x, rhs.y, rhs.z, 1);
   return {glm_vec.x, glm_vec.y, glm_vec.z};
 }
@@ -84,11 +82,11 @@ Mat4 Mat4::Translate(real_t x, real_t y, real_t z) {
   return m;
 }
 
-Mat4 Mat4::Translate(const Vector3& vec) {
+Mat4 Mat4::Translate(const pjmath::Vector3& vec) {
   return Translate(vec.x, vec.y, vec.z);
 }
 
-Mat4 Mat4::Rotate(real_t rads, const Vector3& axis) {
+Mat4 Mat4::Rotate(real_t rads, const pjmath::Vector3& axis) {
   Mat4 m = Mat4::identity;
   m.glm_mat = glm::rotate(rads, glm::vec3(axis.x, axis.y, axis.z));
   return m;
@@ -113,6 +111,6 @@ Mat4 Mat4::Scale(real_t x, real_t y, real_t z) {
   return m;
 }
 
-Mat4 Mat4::Scale(const Vector3& vec) {
+Mat4 Mat4::Scale(const pjmath::Vector3& vec) {
   return Scale(vec.x, vec.y, vec.z);
 }
