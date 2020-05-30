@@ -75,6 +75,8 @@
         "xlocbuf": "cpp",
         "xlocmes": "cpp",
         "xlocmon": "cpp",
-        "xloctime": "cpp"
+        "xloctime": "cpp",
+        "shared_mutex": "cpp",
+        "optional": "cpp"
     }
 }

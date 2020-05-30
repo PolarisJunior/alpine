@@ -21,8 +21,8 @@
 #include "graphics/material.h"
 #include "graphics/shader_program.h"
 #include "math/mat4.h"
-#include "math/vector3.h"
 #include "pjmath/math_funcs.hpp"
+#include "pjmath/vector.hpp"
 #include "ui/window_builder.h"
 
 int main(int argc, char* argv[]) {
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
   Skybox skybox{};
 
   Camera camera;
-  camera.transform.Translate(Vector3(1.0, 0.0, -3.0));
+  camera.transform.Translate(pjmath::Vector3{1.0, 0.0, -3.0});
 
   entt::registry registry;
   auto entity = registry.create();
@@ -45,7 +45,8 @@ int main(int argc, char* argv[]) {
   entity = registry.create();
   registry.assign<Transform>(entity);
   registry.assign<Mesh>(entity, Primitive::cube_mesh);
-  registry.get<Transform>(entity).Rotate(PI / 2, Vector3(0.5, 0.5, 0));
+  registry.get<Transform>(entity).Rotate(pjmath::PI / 2,
+                                         pjmath::Vector3{0.5, 0.5, 0});
   registry.assign<Material>(entity, Material{mat});
 
   GameLoop loop;
@@ -60,29 +61,29 @@ int main(int argc, char* argv[]) {
       last_update_time = Program::GetSeconds();
       float speed = 10;
       if (Keyboard::KeyDown(Keyboard::ScanCode::W)) {
-        camera.transform.Translate(Vector3::forward * delta * speed);
+        camera.transform.Translate(pjmath::Vector3::Forward() * delta * speed);
       }
       if (Keyboard::KeyDown(Keyboard::ScanCode::S)) {
-        camera.transform.Translate(Vector3::backward * delta * speed);
+        camera.transform.Translate(pjmath::Vector3::Backward() * delta * speed);
       }
       if (Keyboard::KeyDown(Keyboard::ScanCode::A)) {
-        camera.transform.Translate(Vector3::left * delta * speed);
+        camera.transform.Translate(pjmath::Vector3::Left() * delta * speed);
       }
       if (Keyboard::KeyDown(Keyboard::ScanCode::D)) {
-        camera.transform.Translate(Vector3::right * delta * speed);
+        camera.transform.Translate(pjmath::Vector3::Right() * delta * speed);
       }
       if (Keyboard::KeyDown(Keyboard::ScanCode::J)) {
-        camera.transform.Translate(Vector3::down * delta * speed);
+        camera.transform.Translate(pjmath::Vector3::Down() * delta * speed);
       }
       if (Keyboard::KeyDown(Keyboard::ScanCode::K)) {
-        camera.transform.Translate(Vector3::up * delta * speed);
+        camera.transform.Translate(pjmath::Vector3::Up() * delta * speed);
       }
 
       if (Keyboard::KeyDown(Keyboard::ScanCode::LEFT)) {
-        camera.transform.Rotate(-0.5 * delta, Vector3::up);
+        camera.transform.Rotate(-0.5 * delta, pjmath::Vector3::Up());
       }
       if (Keyboard::KeyDown(Keyboard::ScanCode::RIGHT)) {
-        camera.transform.Rotate(0.5 * delta, Vector3::up);
+        camera.transform.Rotate(0.5 * delta, pjmath::Vector3::Up());
       }
     }
 

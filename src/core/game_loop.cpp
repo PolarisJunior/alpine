@@ -14,7 +14,6 @@
 #include "graphics/shader_program.h"
 #include "graphics/shader_program_builder.h"
 #include "math/mat4.h"
-#include "math/vector3.h"
 #include "pjmath/math_funcs.hpp"
 #include "ui/window_builder.h"
 

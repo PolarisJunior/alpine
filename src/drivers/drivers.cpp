@@ -4,7 +4,6 @@
 // Required to use static linkage with GLEW
 #define GLEW_STATIC
 #include <GL/glew.h>
-
 #include <SDL.h>
 #include <SDL_opengl.h>
 
@@ -20,8 +19,7 @@ void Drivers::Init() {
 void Drivers::InitGraphics(Window& window) {
   SetGlAttributes();
 
-  SDL_GLContext context =
-      SDL_GL_CreateContext(static_cast<SDL_Window*>(window.raw_window));
+  window.InitGlContext();
 
   GLenum glewError = glewInit();
   if (glewError != GLEW_OK) {

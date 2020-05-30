@@ -1,8 +1,7 @@
 #pragma once
-#include "pjmath/math_defs.hpp"
-#include "vector3.h"
+#include "pjmath/vector.hpp"
 
 struct Ray {
-  Vector3 origin;
-  Vector3 direction;
+  pjmath::Vector3 origin;
+  pjmath::Vector3 direction;
 };

@@ -1,12 +1,11 @@
 #pragma once
 
+#include <cstdint>
+#include <memory>
 #include <string>
 
-#include <cstdint>
-
 class Window {
-  int32_t width;
-  int32_t height;
+  struct WindowImpl;
 
  public:
   Window();
@@ -24,7 +23,12 @@ class Window {
   int32_t Width() const { return width; };
   int32_t Height() const { return height; };
 
+  void InitGlContext();
+
   Window& operator=(Window&& other);
 
-  void* raw_window;
+ private:
+  std::unique_ptr<WindowImpl> impl;
+  int32_t width;
+  int32_t height;
 };

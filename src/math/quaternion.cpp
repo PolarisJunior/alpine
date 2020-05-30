@@ -3,15 +3,15 @@
 #include "math/mat4.h"
 #include "pjmath/math_funcs.hpp"
 
-Quaternion::Quaternion(real_t rf_angle, const Vector3& rk_axis) {
-  Vector3 axis = rk_axis.Normalized();
+Quaternion::Quaternion(real_t rf_angle, const pjmath::Vector3& rk_axis) {
+  pjmath::Vector3 axis = rk_axis.Normalized();
 
   real_t f_half_angle(0.5 * rf_angle);
-  real_t f_sin = Math::Sin(f_half_angle);
-  w = Math::Cos(f_half_angle);
-  x = f_sin * axis.x;
-  y = f_sin * axis.y;
-  z = f_sin * axis.z;
+  real_t f_sin = pjmath::Sin(f_half_angle);
+  w = pjmath::Cos(f_half_angle);
+  x = f_sin * axis.x();
+  y = f_sin * axis.y();
+  z = f_sin * axis.z();
 }
 
 Mat4 Quaternion::ToMatrix() const {
@@ -29,9 +29,9 @@ Quaternion Quaternion::Inverse() const {
   return Quaternion(0, 0, 0, 0);
 }
 
-Vector3 Quaternion::operator*(const Vector3& v) const {
-  Vector3 q(x, y, z);
-  Vector3 t = q.Cross(v) * 2.0f;
+pjmath::Vector3 Quaternion::operator*(const pjmath::Vector3& v) const {
+  pjmath::Vector3 q{x, y, z};
+  pjmath::Vector3 t = q.Cross(v) * 2.0f;
   return v + (t * w) + q.Cross(t);
 }
 

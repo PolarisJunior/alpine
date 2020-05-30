@@ -2,31 +2,36 @@
 
 #include "math/mat4.h"
 #include "math/quaternion.h"
-#include "math/vector3.h"
+#include "pjmath/vector.hpp"
 
 class Transform {
-  Vector3 local_position = Vector3::zero;
-  Vector3 local_scale = Vector3::one;
+  pjmath::Vector3 local_position = pjmath::Vector3::Zero();
+  pjmath::Vector3 local_scale = pjmath::Vector3::One();
+
   Quaternion local_rotation = Quaternion::identity;
 
   mutable bool dirty = true;
   mutable Mat4 model;
 
  public:
-  Transform() = default;
-  Transform(float x, float y, float z) : local_position(Vector3{x, y, z}){};
+  Transform()
+      : local_position(pjmath::Vector3::Zero()),
+        local_scale(pjmath::Vector3::One()){};
 
-  void Translate(const Vector3& vec);
-  void Rotate(real_t rads, const Vector3& axis);
+  Transform(float x, float y, float z)
+      : local_position{x, y, z}, local_scale(pjmath::Vector3::One()){};
+
+  void Translate(const pjmath::Vector3& vec);
+  void Rotate(real_t rads, const pjmath::Vector3& axis);
 
   // Locals
-  Vector3 Position() const;
-  Vector3 Scale() const;
+  pjmath::Vector3 Position() const;
+  pjmath::Vector3 Scale() const;
   Quaternion Rotation() const;
 
   // Globals
-  Vector3 GlobalPosition() const;
-  Vector3 GlobalScale() const;
+  pjmath::Vector3 GlobalPosition() const;
+  pjmath::Vector3 GlobalScale() const;
   Quaternion GlobalRotation() const;
 
   Mat4 ModelMatrix() const;

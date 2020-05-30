@@ -15,21 +15,22 @@ Mat4 Transform::InverseModelMatrix() const {
   return ModelMatrix().Inverse();
 }
 
-void Transform::Translate(const Vector3& vec) {
+void Transform::Translate(const pjmath::Vector3& vec) {
   local_position += vec;
   dirty = true;
 }
 
-void Transform::Rotate(real_t rads, const Vector3& axis) {
+void Transform::Rotate(real_t rads, const pjmath::Vector3& axis) {
   local_rotation *= Quaternion{rads, axis};
   dirty = true;
 }
 
-Vector3 Transform::Position() const {
+pjmath::Vector3 Transform::Position() const {
   return local_position;
+  // return local_position;
 }
 
-Vector3 Transform::GlobalPosition() const {
+pjmath::Vector3 Transform::GlobalPosition() const {
   // TODO support global position
   return Position();
 }
